@@ -24,12 +24,14 @@ export function buildPlaza(b: StructureBuilder) {
   });
 
   // 商场与塔楼门前的过渡浅色石材：让两栋楼的入口在铺装上"落地"。
+  // 顶面标高 0.33：必须低于草坪顶面（0.36），否则两者在公园东北角大面积
+  // 共面，深度值逐像素打架，草坪会持续闪烁（z-fighting）。
   const aprons: [number, number, number, number][] = [
     [-34, 20, 22, 82], // 商场圆角前
     [34, 78, -34, 24], // 塔楼裙房前
   ];
   aprons.forEach(([x0, x1, z0, z1], i) => {
-    b.box([x1 - x0, 0.06, z1 - z0], [(x0 + x1) / 2, 0.33, (z0 + z1) / 2], 'stone', at(span, 0.42 + i * 0.06), {
+    b.box([x1 - x0, 0.06, z1 - z0], [(x0 + x1) / 2, 0.3, (z0 + z1) / 2], 'stone', at(span, 0.42 + i * 0.06), {
       duration: 0.03,
       lift: 0.4,
       shade: 1.08,
